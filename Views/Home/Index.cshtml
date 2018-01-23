@@ -1,29 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-<br>
 @model List<Contact>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/Laborer.js"></script>
+
 <form>
-<div class="row" style="margin-top: 10px;">
-    <div class="col-lg-12">
-    <div class="col-md-3">
-        <h4>Name</h4>
-    </div>
-    <div class="col-md-3">
-        <h4>Department</h4>
-    </div>
-    <div class="col-md-3">
-        <h4>Home Phone</h4>
-    </div>
-    <div class="col-md-3">
-        <h4>Cell Phone</h4>
-    </div>
-    </div>
-    <div class="col-md-12">
-    @foreach(Contact item in Model)
-    {
-        @Html.Partial("_ActiveContacts", item)
-    }
-    </div>
-</div>
+<table class="table text-center" style="margin-top: 10px;">
+    <thead class="text-center">
+        <tr>
+            <th>Called</th>
+            <th>Accepted</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Home Phone</th>
+            <th>Cell Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Contact item in Model)
+        {
+            @Html.Partial("_ActiveContacts", item)
+        }
+    </tbody>
+</table>
 </form>

@@ -6,6 +6,8 @@ namespace DPW_response.Models
 {
     public class Contact 
     {
+        public string Called { get; set; }
+        public string Accepted { get; set; }
         public string OID { get; set; }
         public string FullName { get; set; }
         public string Department { get; set; }
