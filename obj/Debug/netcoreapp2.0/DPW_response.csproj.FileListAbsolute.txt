@@ -1,0 +1,12 @@
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/app.db
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/DPW_response.deps.json
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/DPW_response.runtimeconfig.json
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/DPW_response.runtimeconfig.dev.json
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/DPW_response.dll
+/home/ssskram/applications/DPW_response/bin/Debug/netcoreapp2.0/DPW_response.pdb
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/DPW_response.csproj.CoreCompileInputs.cache
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/DPW_response.AssemblyInfoInputs.cache
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/DPW_response.AssemblyInfo.cs
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/DPW_response.dll
+/home/ssskram/applications/DPW_response/obj/Debug/netcoreapp2.0/DPW_response.pdb
