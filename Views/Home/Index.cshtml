@@ -2,7 +2,28 @@
     ViewData["Title"] = "Home";
 }
 <br>
-<div class="row" style="height:auto;">
-
-Insert repeating partial view with cartegraph laborer information here
+@model List<Contact>
+<form>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-12">
+    <div class="col-md-3">
+        <h4>Name</h4>
+    </div>
+    <div class="col-md-3">
+        <h4>Department</h4>
+    </div>
+    <div class="col-md-3">
+        <h4>Home Phone</h4>
+    </div>
+    <div class="col-md-3">
+        <h4>Cell Phone</h4>
+    </div>
+    </div>
+    <div class="col-md-12">
+    @foreach(Contact item in Model)
+    {
+        @Html.Partial("_ActiveContacts", item)
+    }
+    </div>
 </div>
+</form>

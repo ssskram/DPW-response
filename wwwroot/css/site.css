@@ -169,3 +169,7 @@ h1, h2, h3, h4 {
 textarea { 
     overflow: hidden;
 }
+.no-border {
+    border: 0;
+    box-shadow: none;
+}
