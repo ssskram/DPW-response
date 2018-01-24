@@ -86,20 +86,24 @@ $(document).ready(function(){
         pagination: true,
         bLengthChange: false,
         columnDefs : [
-                { "type": "html-input", "targets": [2,3,4] }
+                { "type": "html-input", "targets": [0,1,2,3] }
         ]
     });
+    table.on( 'responsive-display', function () {
+    $('.selectpicker').selectpicker('refresh');
+    } );
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
     }
     $("#form").show();
     $('#search').on( 'keyup', function () {
         table.search( this.value ).draw();
-        $('#dropdown').val('');
+        $('.selectpicker').selectpicker('refresh');
     } );
-    $('#dropdown').on('change', function () {
+    $('#dropdown').on( 'change' , function () {
         table.search( this.value ).draw();
         $('#search').val('');
+        $('.selectpicker').selectpicker('refresh');
     } );
 });
 </script>

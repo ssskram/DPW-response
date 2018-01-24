@@ -1,16 +1,6 @@
 @model Contact
 <tr>
     <td>
-    <input asp-for="Called" type="checkbox" class="form-check-input big-checkbox" id="called" onchange="CheckField()"/>
-    </td>
-    <td>
-    <select asp-for="Accepted" class="form-control" id="accepted" onchange="CheckField()">
-        <option value=""></option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-    </select>
-    </td>
-    <td>
     <input asp-for="FullName" class="no-border" readonly="true"/>
     </td>
     <td>
@@ -21,6 +11,18 @@
     </td>
     <td>
     <input asp-for="CellPhone" class="no-border" readonly="true"/>
+    <input id="trigger" hidden="true">
+    </td>
+    <td>
+    <select asp-for="Called" data-style="btn-info" class="selectpicker form-control" id="called" onchange="CheckField()" title="select">
+        <option value="Yes">Yes</option>
+    </select>
+    </td>
+    <td>
+    <select asp-for="Accepted" data-style="btn-info" class="selectpicker form-control" id="accepted" onchange="CheckField()" title="select" style="width: 50px;">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
     </td>
 </tr>
    
