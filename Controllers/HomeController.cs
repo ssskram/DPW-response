@@ -29,6 +29,7 @@ namespace DPW_response.Controllers
                         item.DepartmentField != "DOMI - Traffic Control" &&
                         item.DepartmentField != "Administration" && 
                         item.DepartmentField != "Asphalt" && 
+                        item.DepartmentField != "DOMI - Signs and Markings" &&
                         item.DepartmentField != "Environmental Services") {
                         Contact contact1 = new Contact() {
                             OID = item.Oid,

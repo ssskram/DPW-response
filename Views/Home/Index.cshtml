@@ -5,7 +5,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/Laborer.js"></script>
 <form style="margin-top:15px; display:none;" id="form">
-<table id="dt" class="table table-striped text-center">
+
+<table id="dt" class="table table-striped text-center dt-responsive">
+<row>
+    <div class="col-sm-3">
+        <select id="dropdown" data-style="btn-info" class="selectpicker form-control" title="Select division(s)">
+        <option value="1st Division">1st Division</option>
+        <option value="2nd Division">2nd Division</option>
+        <option value="3rd Division">3rd Division</option>
+        <option value="5th Division">5th Division</option>
+        <option value="6th Division">6th Division</option>
+        <option value="Citiparks">Citiparks</option>
+        <option value="Construction">Construction</option>
+        <option value="Facilities">Facilities</option>
+        <option value="Forestry">Forestry</option>
+        <option value="Heavy Equipment">Heavy Equipment</option>
+        <option value="Parks - Eastern">Parks - Eastern</option>
+        <option value="Parks - Northeast">Parks - Northeast</option>
+        <option value="Parks - Northern">Parks - Northern</option>
+        <option value="Parks - Schenley">Parks - Schenley</option>
+        <option value="Parks - Southern">Parks - Southern</option>
+        <option value="Parks - Western">Parks - Western</option>
+        <option value="Permits">Permits</option>
+        </select>
+    </div>
+    <div class="col-sm-5">
+        <input class="form-control" id="search" placeholder="Search table"/>
+    </div>
+</row>
     <thead>
         <tr>
             <th>Called</th>
@@ -17,6 +44,19 @@
             <th></th>
         </tr>
     </thead>
+
+    <tfoot>
+        <tr>
+            <th>Called</th>
+            <th>Accepted</th>
+            <th>Name</th>
+            <th>Division</th>
+            <th>Home Phone</th>
+            <th>Cell Phone</th>
+            <th></th>
+        </tr>
+    </tfoot>
+
     <tbody>
         @foreach(Contact item in Model)
         {

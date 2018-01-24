@@ -69,14 +69,36 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script>
 $(document).ready(function(){
-    $("#dt").DataTable({
-        "ordering": false,
-        "bFilter": false,
-        "pageLength": 50
+    $.fn.dataTableExt.ofnSearch['html-input'] = function(value) {
+    return $(value).val();
+    };
+    var table = $("#dt").DataTable({
+        pageLength : 15,
+        searching: true,
+        bFilter: false,
+        ordering: false,
+        pagination: true,
+        bLengthChange: false,
+        columnDefs : [
+                { "type": "html-input", "targets": [2,3,4] }
+        ]
     });
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+    $('.selectpicker').selectpicker('mobile');
+    }
     $("#form").show();
+    $('#search').on( 'keyup', function () {
+        table.search( this.value ).draw();
+        $('#dropdown').val('');
+    } );
+    $('#dropdown').on('change', function () {
+        table.search( this.value ).draw();
+        $('#search').val('');
+    } );
 });
 </script>
 </body>
