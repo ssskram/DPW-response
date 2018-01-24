@@ -11,9 +11,3 @@ function CheckField (){
         $("#checkmark").css("display", "none");
     }
 }
-
-$(document).ready(function () {
-    $('#button').click(function(){
-        $(this).parent().parent().parent().remove();
-    });
-});
