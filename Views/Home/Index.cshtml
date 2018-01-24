@@ -6,7 +6,7 @@
 <script type="text/javascript" src="~/js/Laborer.js"></script>
 <form style="margin-top:15px; display:none;" id="form">
 
-<table id="dt" class="table table-striped text-center dt-responsive">
+<table id="dt" class="display responsive nowrap" cellspacing="0" width="100%">
 <row>
     <div class="col-sm-3">
         <select id="dropdown" data-style="btn-info" class="selectpicker form-control" title="Select division(s)">
@@ -41,22 +41,8 @@
             <th>Division</th>
             <th>Home Phone</th>
             <th>Cell Phone</th>
-            <th></th>
         </tr>
     </thead>
-
-    <tfoot>
-        <tr>
-            <th>Called</th>
-            <th>Accepted</th>
-            <th>Name</th>
-            <th>Division</th>
-            <th>Home Phone</th>
-            <th>Cell Phone</th>
-            <th></th>
-        </tr>
-    </tfoot>
-
     <tbody>
         @foreach(Contact item in Model)
         {
