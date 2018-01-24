@@ -105,6 +105,10 @@ $(document).ready(function(){
         $('#search').val('');
         $('.selectpicker').selectpicker('refresh');
     } );
+    $(".dataTable").on('change','#accepted', function () { 
+        var accepted = $(this).val();
+        $(this).prevUntil('#called').addClass("highlighted");
+    });
     new $.fn.dataTable.Responsive( table, {} );
 });
 </script>
