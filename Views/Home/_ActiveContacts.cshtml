@@ -1,29 +1,32 @@
 @model Contact
-<tr id="patial">
+<tr>
     <td>
-    <input asp-for="Called" type="checkbox" class="form-check-input" id="called"></input>
+    <input asp-for="Called" type="checkbox" class="form-check-input big-checkbox" id="called" onchange="CheckField()"/>
     </td>
     <td>
-    <select asp-for="Accepted" class="form-control" id="accepted" >
+    <select asp-for="Accepted" class="form-control" id="accepted" onchange="CheckField()">
         <option value=""></option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
     </select>
     </td>
     <td>
-    <input asp-for="FullName" class="no-border" readonly="true"></input>
+    <input asp-for="FullName" class="no-border" readonly="true"/>
     </td>
     <td>
-    <input asp-for="Department" class="no-border" readonly="true"></input>
+    <input asp-for="Department" class="no-border" readonly="true"/>
     </td>
     <td>
-    <input asp-for="HomePhone" class="no-border" readonly="true"></input>
+    <input asp-for="HomePhone" class="no-border" readonly="true"/>
     </td>
     <td>
-    <input asp-for="CellPhone" class="no-border" readonly="true"></input>
+    <input asp-for="CellPhone" class="no-border" readonly="true"/>
     </td>
     <td>
-    <input id="button" value="Save &raquo;" class="btn btn-default" onclick="CheckField()"/>
+    <div class="right-inner-addon">
+        <input id="button" value="Finished" class="btn btn-default" disabled="true" style="margin-right: 5px;"/>
+        <span class="glyphicon glyphicon-ok form-control-feedback icon-success" style="font-size: 1.3em; margin: 6px 30px 5px 10px; display:none;" id="checkmark" ></span>
+    </div>
     </td>
 </tr>
    

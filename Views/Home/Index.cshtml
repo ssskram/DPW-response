@@ -4,10 +4,9 @@
 @model List<Contact>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/Laborer.js"></script>
-
-<form>
-<table class="table text-center" style="margin-top: 10px;">
-    <thead class="text-center">
+<form style="margin-top:15px; display:none;" id="form">
+<table id="dt" class="table table-striped text-center">
+    <thead>
         <tr>
             <th>Called</th>
             <th>Accepted</th>
@@ -15,6 +14,7 @@
             <th>Department</th>
             <th>Home Phone</th>
             <th>Cell Phone</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>

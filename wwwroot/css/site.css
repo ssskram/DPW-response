@@ -94,23 +94,23 @@ h1, h2, h3, h4 {
 .btn-default {
     /* font */
     color: #383838;
-    font-size: 18px;
+    font-size: 16px !important;
+    font-weight: bold !important;
     font-family: helvetica;
     /* remove blue underline */
     text-decoration: none;
     /* border */
     border: 0px;
-    border-radius: 10px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
-    background-color:white;
-    padding: 10px 15px;
+    background-color:rgba(202, 205, 206,.35);
+    padding: 5px 15px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
-    -webkit-box-shadow: 5px 5px 5px 5px #888;
+    -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
     width: 200px;
   }
@@ -134,7 +134,7 @@ h1, h2, h3, h4 {
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
-    width: 300px;
+    width: 250px;
 }
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     padding: 6px 12px !important;
@@ -148,7 +148,8 @@ h1, h2, h3, h4 {
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
     /* font */
     color: #383838;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: normal !important;
     font-family: helvetica;
     /* remove blue underline */
     text-decoration: none;
@@ -160,11 +161,12 @@ h1, h2, h3, h4 {
     -moz-transition-duration: .2s;
     /* other */
     background-color:rgba(202, 205, 206,.35);
-    padding: 10px 30px;
+    padding: 5px 15px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
+    width: 200px;
 }
 textarea { 
     overflow: hidden;
@@ -172,4 +174,15 @@ textarea {
 .no-border {
     border: 0;
     box-shadow: none;
+    background-color: transparent;
+}
+.big-checkbox {
+    width: 20px; 
+    height: 20px;
+}
+.icon-success {
+    color: #5CB85C;
+}
+.right-inner-addon {
+    position: relative !important;
 }

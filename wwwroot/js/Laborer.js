@@ -1,12 +1,19 @@
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-
 function CheckField (){
-    var called = $('#called').val();
     var accepted = $('#accepted').val();
-    if (called != null & accepted != false) {
-         alert("hey");
+    if ( (accepted == "Yes" | accepted == "No") & ($('#called').is(':checked')) ) {
+
+        $("#button").prop("disabled",false);
+        $("#checkmark").css("display", "block");
+
+    } else {
+
+        $("#button").prop("disabled",true);
+        $("#checkmark").css("display", "none");
     }
 }
 
+$(document).ready(function () {
+    $('#button').click(function(){
+        $(this).parent().parent().parent().remove();
+    });
+});
