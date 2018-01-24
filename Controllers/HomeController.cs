@@ -23,7 +23,13 @@ namespace DPW_response.Controllers
             List<Contact> Humans = new List<Contact>();
                 foreach (var item in jo)
                 {
-                    if (item.InactiveField == false) {
+                    if (item.InactiveField == false && 
+                        item.DepartmentField != null &&
+                        item.DepartmentField != "DOMI - Design" &&
+                        item.DepartmentField != "DOMI - Traffic Control" &&
+                        item.DepartmentField != "Administration" && 
+                        item.DepartmentField != "Asphalt" && 
+                        item.DepartmentField != "Environmental Services") {
                         Contact contact1 = new Contact() {
                             OID = item.Oid,
                             FullName = item.FullNameField,
