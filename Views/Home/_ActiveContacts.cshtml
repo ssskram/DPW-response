@@ -14,12 +14,14 @@
     <input id="trigger" hidden="true" class="trigger">
     </td>
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="called">
-    <select asp-for="Called" data-style="btn-info" class="selectpicker form-control" id="called" title="select">
+    <select asp-for="Called" data-style="btn-info" class="form-control" id="called" title="select">
+        <option></option>
         <option value="Yes">Yes</option>
     </select>
     </td>
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="accepted">
-    <select asp-for="Accepted" data-style="btn-info" class="selectpicker form-control" id="accepted" title="select" style="width: 50px;">
+    <select asp-for="Accepted" data-style="btn-info" class="form-control" id="accepted" title="select">
+        <option></option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
     </select>

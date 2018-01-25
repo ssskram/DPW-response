@@ -86,29 +86,62 @@ $(document).ready(function(){
         pagination: true,
         bLengthChange: false,
         columnDefs : [
-                { "type": "html-input", "targets": [0,1,2,3] }
+            { "type": "html-input", "targets": [0,1,2,3] }
         ]
     });
-    table.on( 'responsive-display', function () {
-    $('.selectpicker').selectpicker('refresh');
-    } );
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
     }
-    $("#form").show();
     $('#search').on( 'keyup', function () {
         table.search( this.value ).draw();
-        $('.selectpicker').selectpicker('refresh');
     } );
     $('#dropdown').on( 'change' , function () {
         table.search( this.value ).draw();
         $('#search').val('');
-        $('.selectpicker').selectpicker('refresh');
     } );
     $(".dataTable").on('change','#accepted', function () { 
+        $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
         var accepted = $(this).val();
-        $(this).prevUntil('#called').addClass("highlighted");
+        var called = $(this).parent().parent().find( "td.called" ).children().val();
+        if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
+        {
+            $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
+            $(this).parent().parent().fadeOut(400, function(){ $(this).remove();});
+        }
+        else
+        {
+            if (accepted == "Yes" | accepted == "No")
+            {
+                $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
+            }
+            else
+            {
+                $(this).parent().parent().removeAttr('style');
+            }
+        }
     });
+    $(".dataTable").on('change','#called', function () { 
+        $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
+        var accepted = $(this).val();
+        var called = $(this).parent().parent().find( "td.accepted" ).children().val();
+        if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
+        {
+            $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
+            $(this).parent().parent().fadeOut(400, function(){ $(this).remove();});
+        }
+        else
+        {
+            if (accepted == "Yes" | accepted == "No")
+            {
+                $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
+            }
+            else
+            {
+                $(this).parent().parent().removeAttr('style');
+            }
+        }
+    });
+    $("#form").show();
     new $.fn.dataTable.Responsive( table, {} );
 });
 </script>

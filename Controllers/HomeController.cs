@@ -24,6 +24,7 @@ namespace DPW_response.Controllers
                 foreach (var item in jo)
                 {
                     if (item.InactiveField == false && 
+                        item.FullNameField != "HE Mechanic" &&
                         item.DepartmentField != null &&
                         item.DepartmentField != "DOMI - Design" &&
                         item.DepartmentField != "DOMI - Traffic Control" &&

@@ -3,9 +3,7 @@
 }
 @model List<Contact>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/Laborer.js"></script>
 <form style="margin-top:15px; display:none;" id="form">
-
 <table id="dt" class="table table-striped dataTable" cellspacing="0" width="100%">
 <row>
     <div class="col-sm-3">
@@ -36,12 +34,12 @@
     <thead>
     </tr>
         <tr>
-            <th>Name</th>
+            <th class="all">Name</th>
             <th>Division</th>
             <th>Home Phone</th>
             <th>Cell Phone</th>
-            <th style="background-color: rgba(136, 130, 149, 0.2); border-top-left-radius: 10px;">Contacted</th>
-            <th style="background-color: rgba(136, 130, 149, 0.2); border-top-right-radius: 10px;">Accepted</th>
+            <th style="background-color: rgba(136, 130, 149, 0.2); border-top-left-radius: 10px;" class="all">Contacted</th>
+            <th style="background-color: rgba(136, 130, 149, 0.2); border-top-right-radius: 10px;" class="all">Accepted</th>
         </tr>
     </thead>
     <tbody>
