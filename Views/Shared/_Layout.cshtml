@@ -105,8 +105,9 @@ $(document).ready(function(){
         var called = $(this).parent().parent().find( "td.called" ).children().val();
         if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
         {
-            $(this).parent().parent().next('.child').remove();
+            $(this).parent().parent().next('.child').css("background-color", "rgba(57, 172, 205, 0.2)");
             $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
+            $(this).parent().parent().next('.child').fadeOut(400, function(){ $(this).remove();});
             $(this).parent().parent().fadeOut(400, function(){ $(this).remove();});
         }
         else
@@ -127,8 +128,9 @@ $(document).ready(function(){
         var called = $(this).parent().parent().find( "td.accepted" ).children().val();
         if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
         {
-            $(this).parent().parent().next('.child').remove();
+            $(this).parent().parent().next('.child').css("background-color", "rgba(57, 172, 205, 0.2)");
             $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
+            $(this).parent().parent().next('.child').fadeOut(400, function(){ $(this).remove();});
             $(this).parent().parent().fadeOut(400, function(){ $(this).remove();});
         }
         else
