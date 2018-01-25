@@ -79,10 +79,11 @@ $(document).ready(function(){
     return $(value).val();
     };
     var table = $("#dt").DataTable({
+        pageLength : 100,
         searching: true,
         bFilter: false,
-        paging: false,
         ordering: false,
+        paging: true,
         bLengthChange: false,
         columnDefs : [
             { "type": "html-input", "targets": [0,1,2,3] }
