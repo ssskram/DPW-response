@@ -47,7 +47,9 @@ namespace DPW_response.Controllers
 
         static async Task<string> Execute()
         {
-            // craft json load
+
+            var user = Environment.GetEnvironmentVariable("CartegraphLogin");
+            var pass = Environment.GetEnvironmentVariable("CartegraphPass");
             var sharepointUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
@@ -55,7 +57,7 @@ namespace DPW_response.Controllers
                 new AuthenticationHeaderValue ( "Basic", 
                 Convert.ToBase64String(
                 System.Text.ASCIIEncoding.ASCII.GetBytes(
-                string.Format("{0}:{1}", "APIAdmin", "cartegraph1"))));
+                string.Format("{0}:{1}", user, pass))));
             string content = await client.GetStringAsync(sharepointUrl);
             return content;
         }

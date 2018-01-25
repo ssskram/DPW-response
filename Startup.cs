@@ -17,6 +17,8 @@ namespace DPW_response
     {
         string _MSClientID = null;
         string _MSClientSecret = null;
+        string _CartegraphLogin = null;
+        string _CartegraphPass = null;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -45,6 +47,8 @@ namespace DPW_response
         {
             _MSClientID = Configuration["MSClientId"];
             _MSClientSecret = Configuration["MSClientSecret"];
+            _CartegraphLogin = Configuration["CartegraphLogin"];
+            _CartegraphPass = Configuration["CartegraphPass"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
@@ -59,6 +63,10 @@ namespace DPW_response
                     microsoftOptions.ClientSecret = Configuration["MSClientSecret"];
                 });
 
+            // add application services
+            Environment.SetEnvironmentVariable("CartegraphLogin", Configuration["CartegraphLogin"]);
+            Environment.SetEnvironmentVariable("CartegraphPass", Configuration["CartegraphPass"]);
+            
             services.AddMvc()
                 .AddSessionStateTempDataProvider();
 
