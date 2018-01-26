@@ -15,6 +15,8 @@ namespace DPW_response.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        // httpclient to be used by all public methods
+        HttpClient client = new HttpClient();
         public async Task<IActionResult>  Index()
         {
             await Execute();
@@ -45,13 +47,11 @@ namespace DPW_response.Controllers
             return View(Humans);
         }
 
-        static async Task<string> Execute()
+        public async Task<string> Execute()
         {
-
             var user = Environment.GetEnvironmentVariable("CartegraphLogin");
             var pass = Environment.GetEnvironmentVariable("CartegraphPass");
             var sharepointUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField";
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ( "Basic", 
@@ -62,9 +62,52 @@ namespace DPW_response.Controllers
             return content;
         }
 
+        // Post callout data async from ajax call
+    
+        // public async void PostAnimal(Contact model)
+        // {
+        //     await Execute(model);
+        // }
+        
+        // public async Task Execute(Contact model)
+        // {
+        //     var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
+        //     client.DefaultRequestHeaders.Clear();
+        //     client.DefaultRequestHeaders.Authorization = 
+        //         new AuthenticationHeaderValue ("Bearer", SessionToken);
+        //     client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+        //     client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+        //     client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
+        //     var json = 
+        //         String.Format
+        //         ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
+        //             model.OID, // 0
+        //             model.Called, // 1
+        //             model.Accepted, //2
+        //             model.FullName, // 3
+        //             model.Department); // 12
+                
+        //     client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+        //     try
+        //     {
+        //         StringContent strContent = new StringContent(json);               
+        //         strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+        //         HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
+                        
+        //         response.EnsureSuccessStatusCode();
+        //         var content = await response.Content.ReadAsStringAsync();
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         System.Diagnostics.Debug.WriteLine(ex.Message);
+        //     }
+        // }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
+
