@@ -64,10 +64,10 @@ namespace DPW_response.Controllers
 
         // Post callout data async from ajax call
     
-        // public async void PostAnimal(Contact model)
-        // {
-        //     await Execute(model);
-        // }
+        public void PostCallout(Contact model)
+        {
+            //await Execute(model);
+        }
         
         // public async Task Execute(Contact model)
         // {

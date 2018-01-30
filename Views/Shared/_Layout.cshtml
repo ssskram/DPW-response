@@ -106,16 +106,16 @@ $(document).ready(function(){
         var called = $(this).parent().parent().find( "td.called" ).children().val();
         if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
         {
-            // $.ajax(
-            // {
-            //     url: "/Home/PostCallout",
-            //     type: 'POST',
-            //     data: $(this).parent().parent().serialize(),
-            //     error: function(result) {
-            //         alert("Failed to post.  Please try again.");
-            //     }
-            // }
-            // );
+            $.ajax(
+            {
+                url: "/Home/PostCallout",
+                type: 'POST',
+                data: $('tr').serialize(),
+                error: function(result) {
+                    alert($('form').filter('input').serialize());
+                }
+            }
+            );
             table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
             $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
             $(this).parent().parent().fadeOut(600, function(){ $(this).remove();});
@@ -138,16 +138,16 @@ $(document).ready(function(){
         var called = $(this).parent().parent().find( "td.accepted" ).children().val();
         if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
         {
-            // $.ajax(
-            // {
-            //     url: "/Home/PostCallout",
-            //     type: 'POST',
-            //     data: $(this).parent().parent().serialize(),
-            //     error: function(result) {
-            //         alert("Failed to post.  Please try again.");
-            //     }
-            // }
-            // );
+            $.ajax(
+            {
+                url: "/Home/PostCallout",
+                type: 'POST',
+                data: $('tr').serialize(),
+                error: function(result) {
+                    alert($('form').filter('input').serialize());
+                }
+            }
+            );
             table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
             $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
             $(this).parent().parent().fadeOut(600, function(){ $(this).remove();});
