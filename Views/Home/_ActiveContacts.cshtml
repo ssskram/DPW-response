@@ -2,6 +2,7 @@
 <tr>
     <td>
     <input asp-for="FullName" class="no-border" readonly="true" style="width: 155px;"/>
+    <input asp-for="OID" hidden="true" id="oid"/>
     </td>
     <td>
     <input asp-for="Department" class="no-border" readonly="true"/>
@@ -20,10 +21,10 @@
     </select>
     </td>
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="accepted">
-    <select asp-for="Accepted" data-style="btn-info" class="form-control" id="accepted" title="select">
+    <select asp-for="Accepted" data-style="btn-info" class="form-control" id="accepted" title="select" disabled="true">
         <option></option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
     </select>
     </td>
 </tr>

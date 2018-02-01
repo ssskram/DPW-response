@@ -9,18 +9,25 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace DPW_response.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        // inject dependency on usermanager
+        private readonly UserManager<ApplicationUser> _userManager;
+        public HomeController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
         // httpclient to be used by all public methods
         HttpClient client = new HttpClient();
         public async Task<IActionResult>  Index()
         {
-            await Execute();
-            var content = Execute().Result; 
+            await ExecuteGet();
+            var content = ExecuteGet().Result; 
             dynamic jo = JObject.Parse(content)["cgLaborClass"];
             List<Contact> Humans = new List<Contact>();
                 foreach (var item in jo)
@@ -47,62 +54,61 @@ namespace DPW_response.Controllers
             return View(Humans);
         }
 
-        public async Task<string> Execute()
+        public async Task<string> ExecuteGet()
         {
             var user = Environment.GetEnvironmentVariable("CartegraphLogin");
             var pass = Environment.GetEnvironmentVariable("CartegraphPass");
-            var sharepointUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField";
+            var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ( "Basic", 
                 Convert.ToBase64String(
                 System.Text.ASCIIEncoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", user, pass))));
-            string content = await client.GetStringAsync(sharepointUrl);
+            string content = await client.GetStringAsync(cartegraphUrl);
             return content;
         }
 
         // Post callout data async from ajax call
-    
-        public void PostCallout(Contact model)
+        public async Task<IActionResult> PostCallout(Contact model)
         {
-            //await Execute(model);
+            await ExecutePost(model);
+            return RedirectToAction(nameof(HomeController.Index));
         }
         
-        // public async Task Execute(Contact model)
-        // {
-        //     var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
-        //     client.DefaultRequestHeaders.Clear();
-        //     client.DefaultRequestHeaders.Authorization = 
-        //         new AuthenticationHeaderValue ("Bearer", SessionToken);
-        //     client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
-        //     client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
-        //     client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-
-        //     var json = 
-        //         String.Format
-        //         ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
-        //             model.OID, // 0
-        //             model.Called, // 1
-        //             model.Accepted, //2
-        //             model.FullName, // 3
-        //             model.Department); // 12
-                
-        //     client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-        //     try
-        //     {
-        //         StringContent strContent = new StringContent(json);               
-        //         strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-        //         HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
-                        
-        //         response.EnsureSuccessStatusCode();
-        //         var content = await response.Content.ReadAsStringAsync();
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         System.Diagnostics.Debug.WriteLine(ex.Message);
-        //     }
-        // }
+        public async Task ExecutePost(Contact model)
+        {
+            var user = Environment.GetEnvironmentVariable("CartegraphLogin");
+            var pass = Environment.GetEnvironmentVariable("CartegraphPass");
+            var calledby = _userManager.GetUserName(HttpContext.User);
+            var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/cgLabor_OvertimeLogsClass";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue ( "Basic", 
+                Convert.ToBase64String(
+                System.Text.ASCIIEncoding.ASCII.GetBytes(
+                string.Format("{0}:{1}", user, pass))));
+            var json =
+                String.Format
+                ("{{ 'cgLabor_OvertimeLogsClass' : [ {{ 'ParentOid' : '{0}' , 'CalledByField' : '{1}' , 'AcceptedField' : '{2}' }} ] }}",
+                    model.OID, // 0
+                    calledby, // 1
+                    model.Accepted); //2
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(cartegraphUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
 
         public IActionResult Error()
         {

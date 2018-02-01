@@ -100,21 +100,35 @@ $(document).ready(function(){
         table.search( this.value ).draw();
         $('#search').val('');
     } );
+    $(".dataTable").on('change','#called', function () { 
+        var called = $(this).val();
+        if (called == "Yes")
+        {
+            $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
+            $(this).parent().parent().find( "td.accepted" ).children().prop("disabled",false);
+        }
+        else
+        {
+            $(this).parent().parent().removeAttr('style');
+            $(this).parent().parent().find( "td.accepted" ).children().prop("disabled",true);
+        }
+    });
     $(".dataTable").on('change','#accepted', function () { 
         $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
         var accepted = $(this).val();
         var called = $(this).parent().parent().find( "td.called" ).children().val();
-        if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
+        var OID = $(this).parent().parent().find( "#oid" ).val();
+        if ((accepted == "true" | accepted == "false") & (called == "Yes" )) 
         {
             $.ajax(
-            {
-                url: "/Home/PostCallout",
-                type: 'POST',
-                data: $('tr').serialize(),
-                error: function(result) {
-                    alert($('form').filter('input').serialize());
+                {
+                    url: "/Home/PostCallout",
+                    type: 'POST',
+                    data: { 'OID' : OID, 'Accepted' : accepted },
+                    error: function(result) {
+                        alert("Failed to post.  Please try again.");
+                    }
                 }
-            }
             );
             table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
             $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
@@ -122,39 +136,7 @@ $(document).ready(function(){
         }
         else
         {
-            if (accepted == "Yes" | accepted == "No")
-            {
-                $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
-            }
-            else
-            {
-                $(this).parent().parent().removeAttr('style');
-            }
-        }
-    });
-    $(".dataTable").on('change','#called', function () { 
-        $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
-        var accepted = $(this).val();
-        var called = $(this).parent().parent().find( "td.accepted" ).children().val();
-        if ((accepted == "Yes" | accepted == "No") & (called == "Yes" )) 
-        {
-            $.ajax(
-            {
-                url: "/Home/PostCallout",
-                type: 'POST',
-                data: $('tr').serialize(),
-                error: function(result) {
-                    alert($('form').filter('input').serialize());
-                }
-            }
-            );
-            table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
-            $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
-            $(this).parent().parent().fadeOut(600, function(){ $(this).remove();});
-        }
-        else
-        {
-            if (accepted == "Yes" | accepted == "No")
+            if (accepted == "true" | accepted == "false")
             {
                 $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
             }
