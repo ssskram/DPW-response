@@ -40,13 +40,20 @@ namespace DPW_response.Controllers
                         item.DepartmentField != "Administration" && 
                         item.DepartmentField != "Asphalt" && 
                         item.DepartmentField != "DOMI - Signs and Markings" &&
-                        item.DepartmentField != "Environmental Services") {
+                        item.DepartmentField != "Environmental Services" &&
+                        item.CityRateNameField != "Clerk") {
                         Contact contact1 = new Contact() {
                             OID = item.Oid,
                             FullName = item.FullNameField,
                             Department = item.DepartmentField,
                             HomePhone = item.HomePhoneField,
-                            CellPhone = item.CellularField
+                            CellPhone = item.CellularField,
+                            HireDate = item.HireDateField,
+                            ReleaseDate = item.ReleaseDateField,
+                            BargainingUnit = item.BargainingUnitSeniorityDateField,
+                            SubUnionSeniorityDate = item.SubUnionSeniorityDateField,
+                            SubUnion = item.SubUnionField,
+                            CityRateName = item.CityRateNameField
                         };
                         Humans.Add(contact1);  
                     }
@@ -58,7 +65,7 @@ namespace DPW_response.Controllers
         {
             var user = Environment.GetEnvironmentVariable("CartegraphLogin");
             var pass = Environment.GetEnvironmentVariable("CartegraphPass");
-            var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField";
+            var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField,HireDateField,ReleaseDateField,BargainingUnitSeniorityDateField,SubUnionSeniorityDateField,SubUnionField,CityRateNameField";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ( "Basic", 

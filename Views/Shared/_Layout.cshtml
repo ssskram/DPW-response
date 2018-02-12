@@ -64,31 +64,25 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-<script src='https://code.jquery.com/jquery-1.12.3.js'></script>
 <script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script>
 $(document).ready(function(){
-    $.fn.dataTableExt.ofnSearch['html-input'] = function(value) {
-    return $(value).val();
-    };
     var table = $("#dt").DataTable({
         pageLength : 100,
         searching: true,
         bFilter: false,
-        ordering: false,
+        ordering: true,
         paging: true,
-        bLengthChange: false,
-        columnDefs : [
-            { "type": "html-input", "targets": [0,1,2,3] }
-        ]
+        bLengthChange: false
     });
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
@@ -118,7 +112,7 @@ $(document).ready(function(){
         var accepted = $(this).val();
         var called = $(this).parent().parent().find( "td.called" ).children().val();
         var OID = $(this).parent().parent().find( "#oid" ).val();
-        if ((accepted == "true" | accepted == "false") & (called == "Yes" )) 
+        if ((accepted == "Declined" | accepted == "Accepted" | accepted == "Excused") & (called == "Yes" )) 
         {
             $.ajax(
                 {
@@ -136,7 +130,7 @@ $(document).ready(function(){
         }
         else
         {
-            if (accepted == "true" | accepted == "false")
+            if (accepted == "Declined" | accepted == "Accepted" | accepted == "Excused")
             {
                 $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
             }

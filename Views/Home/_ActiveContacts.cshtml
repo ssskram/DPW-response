@@ -1,19 +1,33 @@
 @model Contact
+<div id="id" hidden>@Model.OID</div>
 <tr>
     <td>
-    <input asp-for="FullName" class="no-border" readonly="true" style="width: 155px;"/>
-    <input asp-for="OID" hidden="true" id="oid"/>
+    <div>@Model.FullName</div>
     </td>
     <td>
-    <input asp-for="Department" class="no-border" readonly="true"/>
+    <div>@Model.Department</div>
     </td>
     <td>
-    <input asp-for="HomePhone" class="no-border" readonly="true"/>
+    <div>@Model.HomePhone</div>
     </td>
     <td>
-    <input asp-for="CellPhone" class="no-border" readonly="true"/>
-    <input id="trigger" hidden="true" class="trigger">
+    <div>@Model.CellPhone</div>
     </td>
+    <td>
+    <div>@Model.HireDate</div>
+    </td>
+    <td>
+    <div>@Model.ReleaseDate</div>  
+    </td>
+    <td>
+    <div>@Model.BargainingUnit</div>
+    </td>
+    <td>
+    <div>@Model.SubUnionSeniorityDate</div>
+    </td>
+    <td>
+    <div>@Model.SubUnion</div>
+    </td>    
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="called">
     <select asp-for="Called" data-style="btn-info" class="form-control" id="called" title="select">
         <option></option>
@@ -23,8 +37,9 @@
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="accepted">
     <select asp-for="Accepted" data-style="btn-info" class="form-control" id="accepted" title="select" disabled="true">
         <option></option>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
+        <option value="Declined">Declined/No Response</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Excused">Vacation/Disability</option>
     </select>
     </td>
 </tr>
