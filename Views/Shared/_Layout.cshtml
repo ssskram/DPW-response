@@ -71,18 +71,20 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script>
+$.fn.dataTable.moment( 'MM/DD/YYYY');
 $(document).ready(function(){
     var table = $("#dt").DataTable({
         pageLength : 100,
         searching: true,
-        bFilter: false,
         ordering: true,
         paging: true,
-        bLengthChange: false
+        bLengthChange: false,
+        columnDefs: [
+            { orderable: false, targets: [-1,-2] }
+        ]
     });
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');

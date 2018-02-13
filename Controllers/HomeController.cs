@@ -30,6 +30,7 @@ namespace DPW_response.Controllers
             var content = ExecuteGet().Result; 
             dynamic jo = JObject.Parse(content)["cgLaborClass"];
             List<Contact> Humans = new List<Contact>();
+            var dateformat = "MM/dd/yyyy";
                 foreach (var item in jo)
                 {
                     if (item.InactiveField == false && 
@@ -48,12 +49,11 @@ namespace DPW_response.Controllers
                             Department = item.DepartmentField,
                             HomePhone = item.HomePhoneField,
                             CellPhone = item.CellularField,
-                            HireDate = item.HireDateField,
-                            ReleaseDate = item.ReleaseDateField,
-                            BargainingUnit = item.BargainingUnitSeniorityDateField,
-                            SubUnionSeniorityDate = item.SubUnionSeniorityDateField,
-                            SubUnion = item.SubUnionField,
-                            CityRateName = item.CityRateNameField
+                            HireDate = item.HireDateField.ToString(dateformat),
+                            ReleaseDate = item.ReleaseDateField.ToString(dateformat),
+                            BargainingUnit = item.BargainingUnitSeniorityDateField.ToString(dateformat),
+                            SubUnionSeniorityDate = item.SubUnionSeniorityDateField.ToString(dateformat),
+                            SubUnion = item.SubUnionField
                         };
                         Humans.Add(contact1);  
                     }
