@@ -63,88 +63,17 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+     <!-- bootstrap select package -->
+    <link rel="stylesheet" href="~/css/bootstrapselect.css">
+    <script type="text/javascript" src="~/js/bootstrapselect.js"></script>
+
+    <!-- datatable package -->
+    <link rel="stylesheet" href="~/css/datatables.css">
+    <script type="text/javascript" src="~/js/datatables.js"></script>
+
+    <!-- app -->
+    <script type="text/javascript" src="~/js/home.js"></script>
+
     @RenderSection("Scripts", required: false)
-<script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
-<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-<script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
-<script>
-$.fn.dataTable.moment( 'MM/DD/YYYY');
-$(document).ready(function(){
-    var table = $("#dt").DataTable({
-        pageLength : 100,
-        searching: true,
-        ordering: true,
-        paging: true,
-        bLengthChange: false,
-        columnDefs: [
-            { orderable: false, targets: [-1,-2] }
-        ]
-    });
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-    $('.selectpicker').selectpicker('mobile');
-    }
-    $('#search').on( 'keyup', function () {
-        table.search( this.value ).draw();
-    } );
-    $('#dropdown').on( 'change' , function () {
-        table.search( this.value ).draw();
-        $('#search').val('');
-    } );
-    $(".dataTable").on('change','#called', function () { 
-        var called = $(this).val();
-        if (called == "Yes")
-        {
-            $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
-            $(this).parent().parent().find( "td.accepted" ).children().prop("disabled",false);
-        }
-        else
-        {
-            $(this).parent().parent().removeAttr('style');
-            $(this).parent().parent().find( "td.accepted" ).children().prop("disabled",true);
-        }
-    });
-    $(".dataTable").on('change','#accepted', function () { 
-        $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.3)");
-        var accepted = $(this).val();
-        var called = $(this).parent().parent().find( "td.called" ).children().val();
-        var OID = $(this).parent().parent().find( "#oid" ).val();
-        if ((accepted == "Declined" | accepted == "Accepted" | accepted == "Excused") & (called == "Yes" )) 
-        {
-            $.ajax(
-                {
-                    url: "/Home/PostCallout",
-                    type: 'POST',
-                    data: { 'OID' : OID, 'Accepted' : accepted },
-                    error: function(result) {
-                        alert("Failed to post.  Please try again.");
-                    }
-                }
-            );
-            table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
-            $(this).parent().parent().css("background-color", "rgba(57, 172, 205, 0.2)");
-            $(this).parent().parent().fadeOut(600, function(){ $(this).remove();});
-        }
-        else
-        {
-            if (accepted == "Declined" | accepted == "Accepted" | accepted == "Excused")
-            {
-                $(this).parent().parent().css("background-color", "rgba(185, 171, 139, 0.2)");
-            }
-            else
-            {
-                $(this).parent().parent().removeAttr('style');
-            }
-        }
-    });
-    $("#form").show();
-    new $.fn.dataTable.Responsive( table, {} );
-});
-</script>
 </body>
 </html>
