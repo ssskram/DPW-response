@@ -2,20 +2,19 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
-@model LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "401";
 }
 <div class="row">
     <div class="col-md-12">
-        <img src="~/images/dpw_icon.jpg" class="img-responsive center-block" style="min-width:200px !important; max-height: 400px !important;"/> 
+        <img src="~/images/dpw_icon.jpg" class="img-responsive center-block" style="opacity: 0.8; max-height: 350px !important; margin-bottom: 15px;"/> 
     </div>
     <div class="col-md-12 text-center">
-        <h1 style="letter-spacing: 1px; padding: 3px;">Sorry, stranger</h1>
-        <h1 style="font-weight: bold; letter-spacing: 1px; padding: 3px;">You don't belong here...</h1>
+        <h1 style="letter-spacing: 1px; padding: 3px;">Sorry,</h1>
+        <h1 style="font-weight: bold; letter-spacing: 1px; padding: 3px;">You don't have access.</h1>
     </div>
 </div>
 

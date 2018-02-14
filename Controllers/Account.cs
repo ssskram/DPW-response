@@ -7,30 +7,23 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using DPW_response.Models;
-using DPW_response.Models.AccountViewModels;
 
 namespace DPW_response.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class Account : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger _logger;
 
-        public AccountController(
+        public Account(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<AccountController> logger)
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -42,20 +35,6 @@ namespace DPW_response.Controllers
             // add async method to GET user group members
             ViewData["ReturnUrl"] = returnUrl;
             return View();
-        }
-        public async Task<IActionResult> ExternalUser(string returnUrl = null)
-        {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         [HttpPost]
@@ -74,41 +53,43 @@ namespace DPW_response.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
-            if (remoteError != null)
-            {
-                return RedirectToAction(nameof(Login));
-            }
             var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+            // create user account, and log user in.
+            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["LoginProvider"] = info.LoginProvider;
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (email.Contains("@pittsburghpa.gov"))
             {
-                return RedirectToAction(nameof(Login));
-            }
-            else
-            {
-                // create user account, and log user in.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                if (email.Contains("@pittsburghpa.gov"))
+                var user = new ApplicationUser { UserName = email, Email = email };
+                var add = await _userManager.CreateAsync(user);
+                if (add.Succeeded)
                 {
-                    var user = new ApplicationUser { UserName = email, Email = email };
-                    var add = await _userManager.CreateAsync(user);
+                    add = await _userManager.AddLoginAsync(user, info);
                     if (add.Succeeded)
                     {
-                        add = await _userManager.AddLoginAsync(user, info);
-                        if (add.Succeeded)
-                        {
-                            await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-                            _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        }
+                        await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
                     }
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
-                }                
-                else 
-                {
-                    return View("ExternalUser");
                 }
+                return RedirectToAction(nameof(Home.Index), "Home");
+            }                
+            else 
+            {
+                return View("AccessDenied");
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Home.Index), "Home");
+        }
+
+        public async Task<IActionResult> AccessDenied(string returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            return View();
         }
 
         #region Helpers
@@ -121,7 +102,7 @@ namespace DPW_response.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(Home.Index), "Home");
             }
         }
 

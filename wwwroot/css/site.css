@@ -1,12 +1,21 @@
-﻿body {
+﻿html, {
+    height: 100% !important;
+}
+body {
+    height: 100% !important;
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 footer {
-    margin: 0 10px;
+    margin: 0 15px;
 }
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
     color: #383838;
+}
+/* centers buttons in div */
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 
 /* Wrapping element */
@@ -57,31 +66,57 @@ h1, h2, h3, h4 {
     background-color: #383838 !important;
 }
 
-/* form style */
+/* form styles */
+/* text box */
 .form-control {
     margin: 5px !important;
     height: auto;
 }
-.btn-default:active, .btn-primary:active, .btn-link:active {
+/* formatting for read-only fields */
+.no-border {
+    border: 0;
+    box-shadow: none;
+    background-color: transparent !important;
+}
+/* hide overflow of text area boxes, in conjunction with script in site.js */
+textarea { 
+    overflow: hidden;
+}
+/* format dropdown buttons to look like other fields*/
+button.bs-placeholder[role='button']>span {
+    color:#999;
+}
+/* positioning success icon in address form */
+.right-inner-addon {
+    position: relative !important;
+}
+/* coloring success icon */
+.icon-textbox {
+    font-size: 1.8em; 
+    color: #29a329;
+    margin-top: 2px;  
+    margin-right: -4px;
+}
+
+/* button styles */
+.btn-default:active, .btn-big:active, .btn-link:active {
     outline: none !important;
     box-shadow: none !important;
     background-color: #383838 !important;
     color: white !important;
     transform: translateY(4px);
  }
-.btn-default:focus, .btn-primary:focus, .btn-link:focus { 
+.btn-default:focus, .btn-big:focus, .btn-link:focus { 
     background-color: #383838 !important;
     color: white !important;
     box-shadow: none !important;
     outline: none !important;
  }
-.btn-default:hover, .btn-primary:hover, .btn-link:hover {
-    /* update text color and background color */
+.btn-default:hover, .btn-big:hover, .btn-link:hover {
     color:white !important;
     background-color:#383838 !important;
     box-shadow: none !important;
     outline: none !important;
-    /* transitions */
     transition-duration: .4s;
     -webkit-transition-duration: .11s;
     -moz-transition-duration: .6s;
@@ -94,47 +129,51 @@ h1, h2, h3, h4 {
 .btn-default {
     /* font */
     color: #383838;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    font-family: helvetica;
-    /* remove blue underline */
-    text-decoration: none;
-    /* border */
-    border: 0px;
-    /* transitions */
-    transition-duration: .2s;
-    -webkit-transition-duration: .2s;
-    -moz-transition-duration: .2s;
-    /* other */
-    background-color:rgba(202, 205, 206,.35);
-    padding: 5px 15px;
-    margin: 7px;
-    -moz-box-shadow: 0 0 2px 2px #888;
-    -webkit-box-shadow: 5px 5px 20px 20px #888;
-    box-shadow: 2px 3px 8px 2px #888;
-    width: 200px;
-  }
-.btn-primary {
-    /* font */
-    color: #383838;
     font-size: 18px;
     font-family: helvetica;
     /* remove blue underline */
     text-decoration: none;
     /* border */
     border: 0px;
+    border-radius: 10px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
     background-color:white;
-    padding: 10px 30px;
+    padding: 10px 15px;
     margin: 7px;
+    -moz-box-shadow: 0 0 2px 2px #888;
+    -webkit-box-shadow: 5px 5px 5px 5px #888;
+    box-shadow: 2px 3px 8px 2px #888;
+    width: 200px;
+  }
+.btn-big {
+    /* font */
+    color: #383838;
+    font-size: 28px;
+    font-family: helvetica;
+    text-shadow: #fffaee 0 0 10px;
+    line-height: 1.4em;
+    /* remove blue underline */
+    text-decoration: none;
+    /* border */
+    border: 0px;
+    border-radius: 10px;
+    /* transitions */
+    transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    /* other */
+    background-color:white;
+    padding: 20px;
+    margin-bottom: 20px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
-    width: 250px;
+    width: 300px;
+    height: 160px;
 }
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     padding: 6px 12px !important;
@@ -148,8 +187,7 @@ h1, h2, h3, h4 {
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
     /* font */
     color: #383838;
-    font-size: 16px;
-    font-weight: normal !important;
+    font-size: 18px;
     font-family: helvetica;
     /* remove blue underline */
     text-decoration: none;
@@ -161,45 +199,20 @@ h1, h2, h3, h4 {
     -moz-transition-duration: .2s;
     /* other */
     background-color:rgba(202, 205, 206,.35);
-    padding: 5px 15px;
+    padding: 10px 30px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
-    width: 200px;
 }
-textarea { 
-    overflow: hidden;
+.btn i {
+    padding-bottom: 5px;
+    padding-right: 10px;
 }
-.no-border {
-    border: 0;
-    box-shadow: none;
-    background-color: transparent;
-}
-.big-checkbox {
-    width: 20px; 
-    height: 20px;
-}
-.icon-success {
-    color: #5CB85C;
-}
-.right-inner-addon {
-    position: relative !important;
-}
+
+/* datatable elements */
 .dataTables_filter, .dataTables_info { 
     display: none; 
-}
-.btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
-    padding: 6px 12px !important;
-    font-size: 14px  !important;
-    font-weight: normal  !important;
-    color: #555 !important;
-    background-color: white  !important;
-    border: 1px solid #ccc  !important;
-    border-radius: 4px  !important;
-}
-button.bs-placeholder[role='button']>span {
-    color:#999;
 }
 .paginate_button active {
     display:none;

@@ -14,16 +14,19 @@ using Microsoft.AspNetCore.Identity;
 namespace DPW_response.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class Home : Controller
     {
-        // inject dependency on usermanager
         private readonly UserManager<ApplicationUser> _userManager;
-        public HomeController(UserManager<ApplicationUser> userManager)
+        public Home(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
-        // httpclient to be used by all public methods
+
         HttpClient client = new HttpClient();
+
+        // get all labor records
+        // filter out unwanted
+        // apply remaining to contact model with formatted address
         public async Task<IActionResult>  Index()
         {
             await ExecuteGet();
@@ -60,7 +63,6 @@ namespace DPW_response.Controllers
                 }
             return View(Humans);
         }
-
         public async Task<string> ExecuteGet()
         {
             var user = Environment.GetEnvironmentVariable("CartegraphLogin");
@@ -80,7 +82,7 @@ namespace DPW_response.Controllers
         public async Task<IActionResult> PostCallout(Contact model)
         {
             await ExecutePost(model);
-            return RedirectToAction(nameof(HomeController.Index));
+            return RedirectToAction(nameof(Home.Index));
         }
         
         public async Task ExecutePost(Contact model)
