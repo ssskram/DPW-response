@@ -1,8 +1,8 @@
 @model Contact
-<div id="id" hidden>@Model.OID</div>
 <tr>
     <td>
     <div>@Model.FullName</div>
+    <input asp-for="OID" hidden="true" id="oid"/>
     </td>
     <td>
     <div>@Model.Department</div>
@@ -37,9 +37,9 @@
     <td style="background-color: rgba(136, 130, 149, 0.2);" class="accepted">
     <select asp-for="Accepted" data-style="btn-info" class="form-control" id="accepted" title="select" disabled="true">
         <option></option>
-        <option value="Declined">Declined/No Response</option>
+        <option value="Declined/No Response">Declined/No Response</option>
         <option value="Accepted">Accepted</option>
-        <option value="Excused">Vacation/Disability</option>
+        <option value="Vacation/Disability">Vacation/Disability</option>
     </select>
     </td>
 </tr>

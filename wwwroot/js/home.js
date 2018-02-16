@@ -40,7 +40,7 @@ $(document).ready(function(){
         var accepted = $(this).val();
         var called = $(this).parent().parent().find( "td.called" ).children().val();
         var OID = $(this).parent().parent().find( "#oid" ).val();
-        if ((accepted == "Declined" | accepted == "Accepted" | accepted == "Excused") & (called == "Yes" )) 
+        if ((accepted == "Declined/No Response" | accepted == "Accepted" | accepted == "Vacation/Disability") & (called == "Yes" )) 
         {
             $.ajax(
                 {

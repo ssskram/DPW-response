@@ -100,7 +100,7 @@ namespace DPW_response.Controllers
                 string.Format("{0}:{1}", user, pass))));
             var json =
                 String.Format
-                ("{{ 'cgLabor_OvertimeLogsClass' : [ {{ 'ParentOid' : '{0}' , 'CalledByField' : '{1}' , 'AcceptedField' : '{2}' }} ] }}",
+                ("{{ 'cgLabor_OvertimeLogsClass' : [ {{ 'ParentOid' : '{0}' , 'CalledByField' : '{1}' , 'ResponseField' : '{2}' }} ] }}",
                     model.OID, // 0
                     calledby, // 1
                     model.Accepted); //2
