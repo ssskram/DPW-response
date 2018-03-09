@@ -134,19 +134,17 @@ button.bs-placeholder[role='button']>span {
     /* remove blue underline */
     text-decoration: none;
     /* border */
-    border: 0px;
-    border-radius: 10px;
+    border: .5px;
+    border-style: solid;
+    border-radius: 2px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
-    background-color:white;
+    background-color:rgba(136, 130, 149,.15);
     padding: 10px 15px;
     margin: 7px;
-    -moz-box-shadow: 0 0 2px 2px #888;
-    -webkit-box-shadow: 5px 5px 5px 5px #888;
-    box-shadow: 2px 3px 8px 2px #888;
     width: 200px;
   }
 .btn-big {
@@ -229,4 +227,40 @@ button.bs-placeholder[role='button']>span {
     color: #333 !important;
     border: 0px solid transparent !important;
     border-radius: 0px !important;
+}
+
+/* center login page */
+.login {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* loader to save screen on network activity */
+.overlayloader {
+    align-items: center;
+    justify-content: center;
+    display: none;
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    z-index: 1035;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.loader {
+    border: 16px solid #fffaee;
+    border-top: 16px solid rgba(202, 205, 206,.35);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    animation: spin 4s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
