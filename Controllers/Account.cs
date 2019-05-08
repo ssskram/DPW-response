@@ -71,8 +71,8 @@ namespace DPW_response.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Home.Index), "Home");
-            }                
-            else 
+            }
+            else
             {
                 return View("AccessDenied");
             }

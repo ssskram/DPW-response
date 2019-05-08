@@ -27,40 +27,42 @@ namespace DPW_response.Controllers
         // get all labor records
         // filter out unwanted
         // apply remaining to contact model with formatted address
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult> Index()
         {
             await ExecuteGet();
-            var content = ExecuteGet().Result; 
+            var content = ExecuteGet().Result;
             dynamic jo = JObject.Parse(content)["cgLaborClass"];
             List<Contact> Humans = new List<Contact>();
             var dateformat = "MM/dd/yyyy";
-                foreach (var item in jo)
+            foreach (var item in jo)
+            {
+                if (item.InactiveField == false &&
+                    item.FullNameField != "HE Mechanic" &&
+                    item.DepartmentField != null &&
+                    item.DepartmentField != "DOMI - Design" &&
+                    item.DepartmentField != "DOMI - Traffic Control" &&
+                    item.DepartmentField != "Administration" &&
+                    item.DepartmentField != "Asphalt" &&
+                    item.DepartmentField != "DOMI - Signs and Markings" &&
+                    item.DepartmentField != "Environmental Services" &&
+                    item.CityRateNameField != "Clerk")
                 {
-                    if (item.InactiveField == false && 
-                        item.FullNameField != "HE Mechanic" &&
-                        item.DepartmentField != null &&
-                        item.DepartmentField != "DOMI - Design" &&
-                        item.DepartmentField != "DOMI - Traffic Control" &&
-                        item.DepartmentField != "Administration" && 
-                        item.DepartmentField != "Asphalt" && 
-                        item.DepartmentField != "DOMI - Signs and Markings" &&
-                        item.DepartmentField != "Environmental Services" &&
-                        item.CityRateNameField != "Clerk") {
-                        Contact contact1 = new Contact() {
-                            OID = item.Oid,
-                            FullName = item.FullNameField,
-                            Department = item.DepartmentField,
-                            HomePhone = item.HomePhoneField,
-                            CellPhone = item.CellularField,
-                            HireDate = item.HireDateField.ToString(dateformat),
-                            ReleaseDate = item.ReleaseDateField.ToString(dateformat),
-                            BargainingUnit = item.BargainingUnitSeniorityDateField.ToString(dateformat),
-                            SubUnionSeniorityDate = item.SubUnionSeniorityDateField.ToString(dateformat),
-                            SubUnion = item.SubUnionField
-                        };
-                        Humans.Add(contact1);  
-                    }
+                    Contact contact1 = new Contact()
+                    {
+                        OID = item.Oid,
+                        FullName = item.FullNameField,
+                        Department = item.DepartmentField,
+                        HomePhone = item.HomePhoneField,
+                        CellPhone = item.CellularField,
+                        HireDate = item.HireDateField.ToString(dateformat),
+                        ReleaseDate = item.ReleaseDateField.ToString(dateformat),
+                        BargainingUnit = item.BargainingUnitSeniorityDateField.ToString(dateformat),
+                        SubUnionSeniorityDate = item.SubUnionSeniorityDateField.ToString(dateformat),
+                        SubUnion = item.SubUnionField
+                    };
+                    Humans.Add(contact1);
                 }
+            }
             return View(Humans);
         }
         public async Task<string> ExecuteGet()
@@ -69,8 +71,8 @@ namespace DPW_response.Controllers
             var pass = Environment.GetEnvironmentVariable("CartegraphPass");
             var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/classes/cgLaborClass?fields=OID,InactiveField,FullNameField,DepartmentField,HomePhoneField,CellularField,HireDateField,ReleaseDateField,BargainingUnitSeniorityDateField,SubUnionSeniorityDateField,SubUnionField,CityRateNameField";
             client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ( "Basic", 
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(
                 System.Text.ASCIIEncoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", user, pass))));
@@ -84,7 +86,7 @@ namespace DPW_response.Controllers
             await ExecutePost(model);
             return RedirectToAction(nameof(Home.Index));
         }
-        
+
         public async Task ExecutePost(Contact model)
         {
             var user = Environment.GetEnvironmentVariable("CartegraphLogin");
@@ -93,8 +95,8 @@ namespace DPW_response.Controllers
             var cartegraphUrl = "https://cgweb06.cartegraphoms.com/PittsburghPA/api/v1/Classes/cgLabor_OvertimeLogsClass";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-            client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ( "Basic", 
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(
                 System.Text.ASCIIEncoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", user, pass))));
@@ -107,7 +109,7 @@ namespace DPW_response.Controllers
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try
             {
-                StringContent strContent = new StringContent(json);               
+                StringContent strContent = new StringContent(json);
                 strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 HttpResponseMessage response = client.PostAsync(cartegraphUrl, strContent).Result;
                 response.EnsureSuccessStatusCode();
