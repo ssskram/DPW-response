@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DPW_response.Models
 {
-    public class Contact 
+    public class Contact
     {
         public string Called { get; set; }
         public string Accepted { get; set; }
@@ -19,6 +19,6 @@ namespace DPW_response.Models
         public string SubUnionSeniorityDate { get; set; }
         public string SubUnion { get; set; }
         public string LotteryNumber { get; set; }
-        public string CityRateName { get; set; } 
+        public string CityRateName { get; set; }
     }
 }

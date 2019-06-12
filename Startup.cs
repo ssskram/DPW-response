@@ -66,7 +66,7 @@ namespace DPW_response
             // add application services
             Environment.SetEnvironmentVariable("CartegraphLogin", Configuration["CartegraphLogin"]);
             Environment.SetEnvironmentVariable("CartegraphPass", Configuration["CartegraphPass"]);
-            
+
             services.AddMvc()
                 .AddSessionStateTempDataProvider();
 
@@ -90,7 +90,7 @@ namespace DPW_response
 
             app.UseAuthentication();
 
-            app.UseSession(); 
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
